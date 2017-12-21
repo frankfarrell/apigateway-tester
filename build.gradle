@@ -1,0 +1,45 @@
+buildscript {
+    ext {
+        awsLambdaCoreVersion = "1.1.0"
+        awsLambdaEventsVersion = "1.2.0"
+        junitVersion = "4.12"
+        mockitoVersion = "1.10.19"
+        assertJVersion = "3.4.1"
+        slf4jVersion = "1.7.21"
+        jacksonVersion = "2.7.4"
+        jsonPathAssertVersion = "2.4.0"
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+apply plugin: "java"
+apply plugin: "maven"
+
+group "com.github.frankfarrell"
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile("com.amazonaws:aws-lambda-java-core:${rootProject.awsLambdaCoreVersion}") {
+        exclude group: 'com.amazonaws'
+    }
+    compile("com.fasterxml.jackson.core:jackson-databind:${rootProject.jacksonVersion}")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${rootProject.jacksonVersion}")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${rootProject.jacksonVersion}")
+
+    compile("com.amazonaws.serverless:aws-serverless-java-container-core:0.5")
+    compile("com.jayway.jsonpath:json-path:2.3.0")
+
+    testCompile("junit:junit:${rootProject.junitVersion}")
+    testCompile("org.assertj:assertj-core:${rootProject.assertJVersion}")
+    testCompile("org.mockito:mockito-core:${rootProject.mockitoVersion}")
+    testCompile("com.jayway.jsonpath:json-path-assert:${rootProject.jsonPathAssertVersion}")
+}
